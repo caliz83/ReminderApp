@@ -40,3 +40,8 @@ function App() {
 }
 
 export default App
+
+
+//add a loading indicator
+//add error handling
+//style it
