@@ -12,14 +12,18 @@ import NewReminder from './Components/NewReminder'
 
 function App() {
   const [reminders, setReminders] = useState<Reminder[]>([])
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('')
 
   useEffect(() => {
     loadReminders();  
   }, [])
 
   const loadReminders = async () => {
+    setIsLoading(true);
     const reminders = await ReminderServices.getReminders();
-    setReminders(reminders)
+    setReminders(reminders);
+    setIsLoading(false);
   }
 
   const removeReminder = (id: number) => {
@@ -32,16 +36,18 @@ function App() {
   }
 
   return (
+    <>
     <div className="App">
       <NewReminder onAddReminder={addReminder} />
       <ReminderList items={reminders} onRemoveReminder={(removeReminder)} />   
+      {isLoading && <div className="spinner-border"></div>}
     </div>
+    </>
   )
 }
 
 export default App
 
 
-//add a loading indicator
 //add error handling
 //style it
