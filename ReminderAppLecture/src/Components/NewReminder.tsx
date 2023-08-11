@@ -18,7 +18,7 @@ const NewReminder = ({onAddReminder}: NewReminderProps) => {
     <form onSubmit={submitForm}>
       <label htmlFor="title"></label>
       <input value={title} onChange={event => setTitle(event.target.value)} id="title" type="text" className="form-control" />
-      <button type="submit" className="btn btn-primary rounded-pill my-4">Add Reminder</button>
+      <button type="submit" className="btn btn-primary rounded-pill my-4 d-flex align-content-end">Add Reminder</button>
     </form>
   );
 };

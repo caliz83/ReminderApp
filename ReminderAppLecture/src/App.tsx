@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import './index.css'
 import ReminderList from './Components/ReminderList'
 import Reminder from './Models/Reminders'
 import ReminderServices from './Services/Reminder'
@@ -21,8 +22,12 @@ function App() {
 
   const loadReminders = async () => {
     setIsLoading(true);
+    try {
     const reminders = await ReminderServices.getReminders();
     setReminders(reminders);
+    } catch(error) {
+      setError('Error loading reminders');
+    }
     setIsLoading(false);
   }
 
@@ -31,8 +36,12 @@ function App() {
   }
 
   const addReminder = async (title: string) => {
+    try {
     const newReminder = await ReminderServices.addReminders(title);
     setReminders([newReminder, ...reminders]);
+    } catch(error){
+      setError('Error adding reminder');
+    }
   }
 
   return (
@@ -41,6 +50,7 @@ function App() {
       <NewReminder onAddReminder={addReminder} />
       <ReminderList items={reminders} onRemoveReminder={(removeReminder)} />   
       {isLoading && <div className="spinner-border"></div>}
+      {error && <div className='error.message'>{error}</div>}
     </div>
     </>
   )
@@ -49,5 +59,4 @@ function App() {
 export default App
 
 
-//add error handling
 //style it
